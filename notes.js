@@ -19,13 +19,42 @@ function createImage(notesArray) {
     document.getElementById("image").appendChild(newImage);
 }
 
+function changeImage(notesArray){
+    if (document.getElementById("image").childNodes.length <= 1) {
+        createImage(notesArray);
+    }
+    else {
+        let note = document.getElementById("note")
+        note.parentNode.removeChild(note);
+        createImage(notesArray);
+    }
+}
+
+
+function createButton(id, text, notesArray) {
+    let newButton = document.createElement("BUTTON");
+    newButton.innerHTML = text;
+    newButton.setAttribute("id", id);
+    newButton.setAttribute("height", "80");
+    newButton.setAttribute("width", "100");
+    newButton.onclick = function(){
+        changeImage(notesArray);
+    }
+    
+    document.getElementById("buttons").appendChild(newButton);
+}
+
+
 function clickStartButton() {
     let notesArray = ['C.png', 'E.png', 'G.png'];
+    
 
     randomNote(notesArray);
 
-    if (document.getElementById("image").childNodes.length <= 8) {
+    if (document.getElementById("image").childNodes.length <= 1) {
         createImage(notesArray);
+        createButton('tick-button', "&#9989", notesArray);
+        createButton('cross-button', "&#10060", notesArray);
     }
     else {
         let note = document.getElementById("note")
